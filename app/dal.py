@@ -1,11 +1,11 @@
-from connection import Collection 
+from .connection import Collection 
 
 def get_engineering_high_salary_employees():
     results = Collection.find({
                                "salary": {"$gt": 65000},
                                "job_role.department": "Engineering"
     },
-    {"employee_id":1,"name":1, "salary":1})
+    {"_id":0,"employee_id":1,"name":1, "salary":1}).to_list()
     return results
 
 def get_employees_by_age_and_role():
@@ -21,13 +21,13 @@ def get_employees_by_age_and_role():
                {"job_role.title":"Specialist"}
                ]}
                ]
-    })
+    },{"_id":0,}).to_list()
     return results
 
 def get_top_seniority_employees_excluding_hr():
     results = Collection.find({"$nor":[{
         "job_role.department": "HR"}]
-    }).sort({"years_at_company":-1}).limit(7)
+    },{"_id":0}).sort({"years_at_company":-1}).limit(7).to_list()
     return results
 
 def get_employees_by_age_or_seniority():
@@ -36,7 +36,7 @@ def get_employees_by_age_or_seniority():
             {"age":{"$gt":50}},
             {"years_at_company": {"$lt": 3}}
         ]
-    },{"employee_id":1,"name":1,"age":1,"years_at_company":1 })
+    },{"_id":0,"employee_id":1,"name":1,"age":1,"years_at_company":1 }).to_list()
     return results
 
 def get_managers_excluding_departments():
@@ -49,7 +49,7 @@ def get_managers_excluding_departments():
             ]
         }
     ]
-    })
+    }, {"_id":0}).to_list()
 
     return results
 
@@ -59,11 +59,6 @@ def get_employees_by_lastname_and_age():
                                 {"name": {"$regex":" Wright"}}
                                 ]},
                                 {"age":{"$lt": 35}}]},
-                              {"name":1,"age":1,"job_role.department":1})
+                              {"_id":0,"name":1,"age":1,"job_role.department":1}).to_list()
     return results
 
-if __name__ == "__main__":
-    results = get_employees_by_lastname_and_age()
-    for i in results:
-        print(i)
-    
