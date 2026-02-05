@@ -3,7 +3,7 @@ from pymongo import MongoClient
 from os import getenv
 
 
-mongo_uri = getenv("MONGO_URI", "localhost:27017")
+mongo_uri = getenv("MONGO_URI", "mongo://mongo.mopthetrop-dev.svc.cluster.local:30000")
 mongo_db = getenv("MONGO_DB", "testdb")
 mongo_collection = getenv("MONGO_COLLECTION", "testcollection")
 

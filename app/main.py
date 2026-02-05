@@ -1,8 +1,13 @@
 from fastapi import FastAPI
 from . import dal
 import json
+from .json_to_mongo import main
 
 app = FastAPI()
+
+@app.post("/seed_database")
+def add_data():
+    main()
 
 @app.get("/employees/engineering/high-salary")
 def get_high_salary():

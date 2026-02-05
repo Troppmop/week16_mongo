@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: mongodb-deployment
+ labels:
+   app: mongodb
+spec:
+  replicas: 1
+  selector:
+   matchLabels:
+     app: mongodb
+  template:  #this and all the following lines are moved 2 places left.
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      containers:
+      - name: mongodb
+        image: mongo:latest
+        ports:
+        - containerPort: 30000
+       
